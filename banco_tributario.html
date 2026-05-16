@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banco de Questões OAB — Competência Tributária</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f4f1eb; min-height: 100vh; padding: 2rem 1rem; color: #1a1a1a; }
+.page-header { max-width: 780px; margin: 0 auto 2rem; }
+.tema-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; background: #1a6b3c; color: #fff; border-radius: 5px; padding: 4px 12px; margin-bottom: 0.75rem; }
+.page-title { font-size: 26px; font-weight: 800; color: #1a1a1a; line-height: 1.2; margin-bottom: 0.4rem; }
+.page-sub { font-size: 14px; color: #888; }
+.score-bar { max-width: 780px; margin: 0 auto 1.5rem; background: #fff; border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1.5rem; box-shadow: 0 1px 6px rgba(0,0,0,0.06); flex-wrap: wrap; }
+.score-item { text-align: center; }
+.score-num { font-size: 22px; font-weight: 800; color: #1a1a1a; line-height: 1; }
+.score-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+.score-num.acertos { color: #3B6D11; }
+.score-num.erros { color: #A32D2D; }
+.progress-wrap { flex: 1; min-width: 120px; }
+.progress-track { background: #ede9e0; border-radius: 99px; height: 8px; overflow: hidden; }
+.progress-fill { background: #1a6b3c; height: 8px; border-radius: 99px; transition: width 0.4s ease; width: 0%; }
+.progress-label { font-size: 12px; color: #aaa; margin-top: 4px; }
+.nav-wrap { max-width: 780px; margin: 0 auto 1.5rem; display: flex; flex-wrap: wrap; gap: 6px; }
+.nav-btn { width: 38px; height: 38px; border-radius: 8px; border: 1.5px solid #ddd; background: #fff; font-size: 13px; font-weight: 600; color: #888; cursor: pointer; transition: all 0.15s; font-family: inherit; display: flex; align-items: center; justify-content: center; }
+.nav-btn:hover { border-color: #5aab7a; color: #1a6b3c; }
+.nav-btn.active { border-color: #1a6b3c; background: #1a6b3c; color: #fff; }
+.nav-btn.correto { border-color: #639922; background: #EAF3DE; color: #3B6D11; }
+.nav-btn.errado { border-color: #E24B4A; background: #FCEBEB; color: #A32D2D; }
+.container { max-width: 780px; margin: 0 auto; }
+.q-card { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.07); display: none; animation: fadeIn 0.2s ease; }
+.q-card.visible { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+.q-num { font-size: 12px; font-weight: 700; background: #e6f4ed; color: #1a6b3c; border-radius: 5px; padding: 4px 10px; }
+.q-exame { font-size: 12px; color: #aaa; }
+.q-titulo { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 1rem; line-height: 1.35; }
+.enunciado { font-size: 14px; line-height: 1.8; color: #444; border-left: 3px solid #1a6b3c; padding: 0.875rem 1rem; margin-bottom: 1.25rem; background: #faf9f7; border-radius: 0 8px 8px 0; }
+.comando { font-size: 14px; font-weight: 700; color: #1a6b3c; margin-bottom: 1rem; }
+.alternativas { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.25rem; }
+.alt-btn { display: flex; align-items: flex-start; gap: 13px; background: #f8f7f4; border: 1.5px solid #e5e2d9; border-radius: 10px; padding: 13px 15px; cursor: pointer; text-align: left; transition: border-color 0.15s, background 0.15s, transform 0.1s; width: 100%; font-family: inherit; }
+.alt-btn:hover:not(:disabled) { border-color: #5aab7a; background: #e6f4ed; transform: translateX(2px); }
+.alt-btn:disabled { cursor: default; }
+.alt-letter { font-size: 12px; font-weight: 700; color: #aaa; width: 22px; height: 22px; min-width: 22px; border-radius: 50%; border: 1.5px solid #ccc; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; transition: all 0.15s; }
+.alt-text { font-size: 14px; line-height: 1.65; color: #333; }
+.alt-btn.correct { background: #EAF3DE; border-color: #639922; }
+.alt-btn.correct .alt-letter { background: #639922; border-color: #639922; color: #fff; }
+.alt-btn.correct .alt-text { color: #27500A; font-weight: 600; }
+.alt-btn.wrong { background: #FCEBEB; border-color: #E24B4A; }
+.alt-btn.wrong .alt-letter { background: #E24B4A; border-color: #E24B4A; color: #fff; }
+.alt-btn.wrong .alt-text { color: #791F1F; }
+.feedback { display: none; border-radius: 10px; padding: 1rem 1.25rem; font-size: 14px; line-height: 1.75; margin-bottom: 1rem; }
+.feedback.show { display: block; }
+.feedback.acerto { background: #EAF3DE; border: 1px solid #97C459; color: #27500A; }
+.feedback.erro { background: #FCEBEB; border: 1px solid #F09595; color: #791F1F; }
+.fundamento-box { display: none; border-radius: 10px; padding: 1rem 1.25rem; font-size: 13px; line-height: 1.8; color: #1a3d2b; border-left: 3px solid #1a6b3c; background: #e6f4ed; margin-bottom: 1rem; }
+.fundamento-box.show { display: block; }
+.fundamento-box h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #1a6b3c; margin-bottom: 0.6rem; }
+.caqui-box { display: none; border-radius: 10px; padding: 1rem 1.25rem; font-size: 13px; line-height: 1.8; color: #5a3e00; border-left: 3px solid #e8a000; background: #fff8e6; margin-bottom: 1rem; }
+.caqui-box.show { display: block; }
+.caqui-box h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #b87300; margin-bottom: 0.6rem; }
+.card-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 0.5rem; }
+.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { background: transparent; border: 1.5px solid #ddd; border-radius: 8px; padding: 7px 16px; font-size: 13px; font-family: inherit; color: #666; cursor: pointer; transition: all 0.15s; display: none; }
+.btn:hover { border-color: #1a6b3c; color: #1a6b3c; }
+.btn.show { display: inline-flex; align-items: center; gap: 5px; }
+.btn.green { border-color: #5aab7a; color: #1a6b3c; }
+.btn.green:hover { background: #e6f4ed; }
+.btn.caqui { border-color: #e8a000; color: #b87300; }
+.btn.caqui:hover { background: #fff8e6; }
+.status-text { font-size: 12px; color: #aaa; font-style: italic; }
+.pagination { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; gap: 10px; }
+.pg-btn { background: #fff; border: 1.5px solid #ddd; border-radius: 9px; padding: 9px 20px; font-size: 14px; font-weight: 600; font-family: inherit; color: #555; cursor: pointer; transition: all 0.15s; }
+.pg-btn:hover { border-color: #1a6b3c; color: #1a6b3c; }
+.pg-btn:disabled { opacity: 0.3; cursor: default; }
+.pg-btn.primary { background: #1a6b3c; border-color: #1a6b3c; color: #fff; }
+.pg-btn.primary:hover { background: #145530; }
+.pg-info { font-size: 13px; color: #aaa; }
+@media (max-width: 600px) { body { padding: 1rem 0.75rem; } .q-card { padding: 1.25rem; } .page-title { font-size: 20px; } }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <span class="tema-badge">📌 Banco de Questões OAB — Tributário</span>
+  <h1 class="page-title">Competência Tributária</h1>
+  <p class="page-sub">20 questões — Exames de Ordem 2013 a 2025</p>
+</div>
+
+<div class="score-bar">
+  <div class="score-item"><div class="score-num" id="sc-total">0</div><div class="score-label">Respondidas</div></div>
+  <div class="score-item"><div class="score-num acertos" id="sc-acertos">0</div><div class="score-label">Acertos</div></div>
+  <div class="score-item"><div class="score-num erros" id="sc-erros">0</div><div class="score-label">Erros</div></div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-label" id="progress-label">0 de 20 respondidas</div>
+  </div>
+</div>
+
+<div class="nav-wrap" id="nav-wrap"></div>
+<div class="container" id="questions-container"></div>
+<div class="container">
+  <div class="pagination">
+    <button class="pg-btn" id="btn-prev" onclick="navPage(-1)">← Anterior</button>
+    <span class="pg-info" id="pg-info">1 de 20</span>
+    <button class="pg-btn primary" id="btn-next" onclick="navPage(1)">Próxima →</button>
+  </div>
+</div>
+
+<script>
+const QUESTOES = [
+  {
+    num: 1, exame: "XLV Exame de Ordem Unificado — 2025",
+    titulo: "Competência Tributária dos Municípios",
+    enunciado: "O Município Alfa, desejando aumentar sua arrecadação tributária, instituiu por lei ordinária municipal, publicada em 10/07/2025, um novo imposto sobre a concessão de autorizações para localização e funcionamento de estabelecimentos comerciais. A lei estabelece que produziria efeitos a partir de 01/01/2026. A sociedade empresária ABC Ltda., com estabelecimento comercial no Município Alfa, irresignada com a nova exação, contratou você, como advogado(a), para ajuizar ação declaratória tributária antes do início da vigência da nova lei, visando garantir que não seja cobrada quanto ao novo imposto municipal.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "D",
+    alternativas: {
+      A: "A ação correta a ser manejada seria a ação anulatória tributária.",
+      B: "O novo imposto só pode ser criado por meio de uma lei complementar municipal, e não por mera lei ordinária.",
+      C: "A anterioridade nonagesimal não foi obedecida, pois a lei apenas entraria em vigor 90 dias após 01/01/2026.",
+      D: "O Município Alfa não pode criar esse novo imposto, por não estar compreendido em sua competência tributária constitucional."
+    },
+    feedbacks: {
+      A: "Incorreta. A ação anulatória pressupõe lançamento ou cobrança já constituída. Como a lei ainda não produziu efeitos, o instrumento adequado é a ação declaratória.",
+      B: "Incorreta. O problema não está na espécie normativa, mas na ausência de competência constitucional do Município para instituir esse imposto.",
+      C: "Incorreta. Entre 10/07/2025 e 01/01/2026 decorrem mais de 90 dias — a anterioridade nonagesimal foi respeitada.",
+      D: "Correta! A Constituição Federal lista taxativamente os impostos municipais: IPTU, ITBI e ISS. Imposto sobre concessão de autorizações para funcionamento não está nessa lista. O Município pode até cobrar taxa de polícia, mas nunca criar novo imposto fora de sua competência."
+    },
+    fundamento: "Art. 156 da CF/88: os Municípios têm competência para instituir apenas IPTU, ITBI e ISS. A lista é taxativa — não há autorização para criar outros impostos. A competência residual para novos impostos pertence exclusivamente à União (art. 154, I, CF/88).",
+    caqui: "Município tem três impostos: IPTU, ITBI e ISS. Acabou. Se aparecer qualquer outro imposto municipal na prova, pode riscar — é inconstitucional. A banca adora criar distrações com anterioridade e espécie normativa, mas o problema real é sempre a competência. Foque nisso."
+  },
+  {
+    num: 2, exame: "XLIV Exame de Ordem Unificado — 2025",
+    titulo: "Isenção Heterônoma de IPTU",
+    enunciado: "Tendo ocorrido uma situação de calamidade pública no Município Alfa, no final do ano de 2022, a União enviou vultosos recursos federais para enfrentar tal situação. De modo a também diminuir a carga tributária sobre a população municipal nesse período, a União, por lei federal, aprovou uma isenção de Imposto sobre a Propriedade Predial e Territorial Urbana (IPTU) no Município, por todo o ano de 2023. O Prefeito municipal estava de acordo e editou um decreto para regulamentar a forma como se daria o gozo dessa isenção.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "A",
+    alternativas: {
+      A: "A referida isenção, para ser válida, deveria ter sido veiculada por lei municipal.",
+      B: "A União, em situação de calamidade pública, excepcionalmente, fica autorizada por lei federal a conceder isenção de qualquer imposto municipal.",
+      C: "A União, como ente central, pode condicionar a entrega de tais recursos ao Município à aceitação de que lei federal conceda isenção de imposto municipal.",
+      D: "A edição de decreto por parte do Prefeito configura a concordância do ente municipal com a concessão de tal isenção, tornando-a válida por ratificação expressa do Município."
+    },
+    feedbacks: {
+      A: "Correta! O IPTU é imposto de competência municipal. Apenas o próprio Município pode conceder isenção. A isenção heterônoma — quando um ente concede isenção de tributo de outro — é expressamente proibida pelo art. 151, III, da CF/88.",
+      B: "Incorreta. Não existe exceção constitucional que permita à União conceder isenção de imposto municipal, nem em calamidade pública.",
+      C: "Incorreta. A União não pode usar repasses financeiros como moeda de troca para impor isenção sobre tributo de competência municipal.",
+      D: "Incorreta. O decreto do Prefeito não tem o poder de convalidar uma inconstitucionalidade. A vedação é constitucional e não pode ser afastada por concordância do Município."
+    },
+    fundamento: "Art. 151, III, CF/88: é vedado à União instituir isenções de tributos da competência dos Estados, do Distrito Federal ou dos Municípios. Regra absoluta — sem exceção para calamidade pública, sem exceção para concordância do ente federado.",
+    caqui: "Isenção heterônoma é vedada pela Constituição — ponto final. Não importa se há calamidade, não importa se o Prefeito concordou, não importa se a União mandou dinheiro. Quem cria o tributo é o único que pode isentar. A banca adora criar situações dramáticas (enchentes, calamidades) para te fazer acreditar que existe exceção. Não existe."
+  },
+  {
+    num: 3, exame: "XLIV Exame de Ordem Unificado — 2025",
+    titulo: "Incidência de IPVA sobre Embarcações",
+    enunciado: "Uma sociedade empresária do setor petrolífero adquiriu uma Unidade Flutuante de Produção, Armazenamento e Transferência de Petróleo, a fim de produzir petróleo nas águas territoriais brasileiras. Esta Unidade tem capacidade de se locomover pelas águas por meio de motores próprios, razão pela qual o Estado Alfa, onde fica o domicílio da sociedade empresária, publicou, em 10/02/2024, lei estadual ordinária estabelecendo que a propriedade de tais Unidades configura fato gerador de IPVA.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "D",
+    alternativas: {
+      A: "Embora se trate de veículo automotor, a Constituição Federal proíbe a incidência de IPVA sobre quaisquer veículos aquáticos.",
+      B: "O IPVA não pode incidir sobre veículo que é utilizado nas águas territoriais brasileiras, mas apenas se fosse utilizado em terra.",
+      C: "Somente por lei complementar se poderia delimitar a incidência de IPVA sobre este tipo de Unidade.",
+      D: "Apesar de poder ser classificada como veículo automotor, o IPVA não incidirá por exceção constitucional."
+    },
+    feedbacks: {
+      A: "Incorreta. A Constituição não proíbe expressamente a incidência de IPVA sobre veículos aquáticos. A exclusão vem da interpretação do STF, não de vedação literal.",
+      B: "Incorreta. O critério não é o local de utilização do veículo, mas o entendimento consolidado do STF sobre embarcações e aeronaves.",
+      C: "Incorreta. O problema não é a espécie normativa, mas a impossibilidade de incidência do IPVA sobre embarcações segundo o STF.",
+      D: "Correta! O STF firmou entendimento de que o IPVA não incide sobre embarcações e aeronaves — apenas sobre veículos terrestres. A exceção é jurisprudencial, não literal, mas é constitucional na interpretação do Supremo."
+    },
+    fundamento: "Art. 155, III, CF/88: compete aos Estados instituir IPVA. O STF, ao interpretar o dispositivo, consolidou que embarcações e aeronaves não são alcançadas pelo IPVA — apenas veículos terrestres. Tema 708 da repercussão geral do STF.",
+    caqui: "O STF é claro: IPVA só em veículo terrestre. Embarcação e aeronave ficam de fora, mesmo que tenham motor. Essa questão é uma pegadinha clássica — a unidade flutuante tem motor, mas não roda em terra. Na prova, sempre que aparecer IPVA sobre embarcação ou avião, é inconstitucional."
+  },
+  {
+    num: 4, exame: "XLIV Exame de Ordem Unificado — 2025",
+    titulo: "ITCMD sobre Bem Móvel (Embarcação)",
+    enunciado: "Paulo, domiciliado em Ubatuba (SP), era proprietário de uma única embarcação automotora, que ficava ancorada em Paraty (RJ). Ele veio a falecer no início do ano de 2024, em Belo Horizonte (MG), durante visita à filha e única herdeira, Joana, domiciliada nesta mesma cidade. A filha, maior de idade e capaz, realizou o inventário extrajudicial de seu pai perante tabelião de Belo Horizonte (MG).",
+    comando: "De acordo com o texto da Constituição Federal de 1988, assinale a opção que indica, corretamente, o Estado em que o ITCMD incidente sobre essa transmissão causa mortis é devido.",
+    gabarito: "C",
+    alternativas: {
+      A: "Minas Gerais, por ser o local onde se processou o inventário extrajudicial.",
+      B: "Minas Gerais, por ser o local de domicílio da única herdeira.",
+      C: "São Paulo, por ser o local de domicílio do falecido.",
+      D: "Rio de Janeiro, por ser o local onde ancorada a embarcação automotora."
+    },
+    feedbacks: {
+      A: "Incorreta. O local do inventário não define a competência para o ITCMD sobre bens móveis.",
+      B: "Incorreta. O domicílio da herdeira é irrelevante para definir a competência tributária do ITCMD causa mortis sobre bem móvel.",
+      C: "Correta! Embarcação é bem móvel. Para ITCMD sobre bem móvel em transmissão causa mortis, a CF determina: competência do Estado onde era domiciliado o falecido. Paulo morava em Ubatuba — Estado de São Paulo.",
+      D: "Incorreta. A localização física do bem móvel não define a competência tributária do ITCMD."
+    },
+    fundamento: "Art. 155, §1º, II, CF/88: o ITCMD sobre bens móveis, títulos e créditos compete ao Estado onde era domiciliado o de cujus. Para bens imóveis, a regra é diferente: compete ao Estado onde o imóvel está situado.",
+    caqui: "Decore essa distinção — ela aparece toda hora: ITCMD sobre bem móvel = domicílio do falecido. ITCMD sobre bem imóvel = onde o imóvel está. A banca coloca vários locais diferentes na questão (onde morreu, onde fez inventário, onde mora a herdeira, onde estava o bem) para te confundir. Ignore tudo e procure onde o falecido morava."
+  },
+  {
+    num: 5, exame: "XLI Exame de Ordem Unificado — 2024",
+    titulo: "Competência Tributária nos Territórios Federais",
+    enunciado: "Foi criado o Território Federal Alfa no Brasil, com a determinação de que, por sua extensão, deveria ser dividido em municípios. À luz do texto da Constituição Federal de 1988, sobre a cobrança de impostos nesse novo Território Federal, assinale a afirmativa correta.",
+    comando: "Assinale a afirmativa correta.",
+    gabarito: "B",
+    alternativas: {
+      A: "Os impostos federais e municipais devem ser cobrados, mas os estaduais não, porque o Território não é Estado-membro.",
+      B: "Os impostos federais e estaduais cobrados pertencerão à União, enquanto os impostos municipais pertencerão a cada um dos Municípios em que está dividido o Território.",
+      C: "Os impostos federais cobrados pertencerão à União, mas os impostos estaduais e municipais pertencerão a cada um dos Municípios em que está dividido o Território.",
+      D: "Os impostos cobrados, seja os federais, seja os estaduais, seja os municipais, pertencerão à União."
+    },
+    feedbacks: {
+      A: "Incorreta. Os impostos estaduais também são cobrados — e pertencem à União, não aos Municípios.",
+      B: "Correta! No Território dividido em Municípios: impostos federais e estaduais vão para a União; impostos municipais ficam com os Municípios. Exatamente o que diz o art. 147 da CF.",
+      C: "Incorreta. Os impostos estaduais pertencem à União, não aos Municípios.",
+      D: "Incorreta. Quando há Municípios, os impostos municipais pertencem a eles, não à União."
+    },
+    fundamento: "Art. 147, CF/88: nos Territórios Federais, compete à União os impostos federais e estaduais. Se o Território for dividido em Municípios, os impostos municipais pertencem a cada Município. Se não houver Municípios, a União acumula também os municipais.",
+    caqui: "A chave é saber se o Território tem ou não Municípios. Com Municípios: União pega federal e estadual; Município pega o municipal. Sem Municípios: União pega tudo. Monte uma tabela mental com isso — essa questão é recorrente na OAB."
+  },
+  {
+    num: 6, exame: "XL Exame de Ordem Unificado — 2024",
+    titulo: "Isenção Heterônoma e Combustíveis",
+    enunciado: "Para conter a escalada de preços dos combustíveis que vem afetando a economia nacional, a equipe econômica do governo federal estuda a possibilidade de conceder, mediante lei complementar editada exclusivamente para tal fim, uma isenção temporária de um ano sobre todos os tributos federais e estaduais incidentes sobre os combustíveis (petróleo e derivados), atendendo aos requisitos das leis orçamentárias.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "A",
+    alternativas: {
+      A: "A concessão de tal isenção, mediante lei complementar, de caráter nacional, exclusivamente para este fim é admitida pela Constituição Federal.",
+      B: "Sendo tal benefício fiscal apenas temporário, pode ser excepcionalmente admitido por ter, como causa, uma situação extraordinária de interesse nacional.",
+      C: "Tal lei afronta a Constituição Federal ao atingir tributos de competência estadual.",
+      D: "A competência tributária é privativa da Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP), quanto à tributação de combustíveis, e tal lei acaba por violá-la."
+    },
+    feedbacks: {
+      A: "Correta! Essa é a exceção constitucional expressa à isenção heterônoma. Para combustíveis e lubrificantes, a CF autoriza a União a conceder isenção por lei complementar de caráter nacional, alcançando inclusive tributos estaduais.",
+      B: "Incorreta. A validade não vem do caráter temporário, mas da autorização constitucional específica para combustíveis.",
+      C: "Incorreta. Neste caso específico, a CF autoriza expressamente que tributos estaduais sejam atingidos.",
+      D: "Incorreta. A ANP não tem competência tributária. Competência tributária é tema constitucional, não de autarquia regulatória."
+    },
+    fundamento: "Art. 155, §2º, XII, 'g' e 'h', CF/88: a CF cria exceção expressa à vedação de isenção heterônoma para combustíveis e lubrificantes, permitindo que lei complementar federal de caráter nacional conceda esses benefícios, alcançando inclusive o ICMS estadual.",
+    caqui: "Aqui está a exceção que a banca adora cobrar: isenção heterônoma é vedada em regra — mas há uma exceção expressa para combustíveis. Com lei complementar nacional e fins específicos, a União pode conceder isenção até de tributos estaduais. Memorize: regra = proibido; exceção = combustíveis."
+  },
+  {
+    num: 7, exame: "XXXVII Exame de Ordem Unificado — 2023",
+    titulo: "Taxa de Licenciamento Calculada pelo Capital Social",
+    enunciado: "João e José constituíram uma sociedade empresária por quotas de responsabilidade limitada com capital social de R$ 50.000,00, sem optarem pelo regime tributário do Simples Nacional, para formalmente exercerem a atividade de comércio varejista de fogos de artifício (considerada atividade de alto risco e periculosidade), sendo ambos residentes e domiciliados no Distrito Federal, mesmo local onde será instalado seu estabelecimento. Surpreendidos com a exigência do pagamento de uma Taxa de Licenciamento e Alvará calculada em função do capital social da sociedade empresária, indagam a você, como advogado(a), se a referida taxa é realmente devida.",
+    comando: "Diante deste cenário, a referida taxa, tal como prevista,",
+    gabarito: "B",
+    alternativas: {
+      A: "não é devida, pois o Distrito Federal não possui competência tributária para a sua cobrança.",
+      B: "não é devida, pois não poderia ser calculada em função do capital social da empresa.",
+      C: "é devida, por ter como fato gerador o exercício regular do poder de polícia distrital sobre atividades econômicas exercidas em seu território, especialmente as de alto risco e periculosidade.",
+      D: "é devida, por ter como fato gerador a utilização efetiva de serviço público, específico e divisível, prestado ao contribuinte."
+    },
+    feedbacks: {
+      A: "Incorreta. O Distrito Federal tem competência para instituir taxas — acumula competências estaduais e municipais.",
+      B: "Correta! A taxa pode existir, mas a base de cálculo adotada (capital social) é inconstitucional. Taxa deve refletir o custo da atuação estatal, não o patrimônio do contribuinte. Capital social é base de cálculo típica de imposto.",
+      C: "Incorreta. O fato gerador (poder de polícia) até justificaria a taxa, mas a base de cálculo está errada.",
+      D: "Incorreta. O fato gerador de taxa de licenciamento é o exercício do poder de polícia, não a prestação de serviço público."
+    },
+    fundamento: "Art. 145, §2º, CF/88: as taxas não podem ter base de cálculo própria de impostos. Capital social é parâmetro típico de imposto. A taxa deve ser calculada com base no custo da atividade estatal de fiscalização — e não no porte econômico da empresa.",
+    caqui: "A taxa em si pode existir. O problema está na base de cálculo. Capital social não mede o custo do poder de polícia — mede o tamanho da empresa, que é critério de imposto. Pense assim: o trabalho do fiscal para vistoriar um fogão de artifício é o mesmo para empresa grande ou pequena. A taxa deve medir isso, não o capital da empresa."
+  },
+  {
+    num: 8, exame: "XXXVI Exame de Ordem Unificado — 2022",
+    titulo: "Contribuição Previdenciária Estadual",
+    enunciado: "A Assembleia Legislativa do Estado Beta irá votar, em 2022, um projeto de lei ordinária para a criação de sua própria contribuição social previdenciária, para custeio do regime próprio de previdência social estadual, a ser cobrada dos seus servidores ativos, dos aposentados e dos pensionistas. Antes, porém, submete o referido projeto de lei ordinária para análise da Comissão de Constituição e Justiça daquela Casa Legislativa, para emissão de parecer sobre a constitucionalidade daquele tributo.",
+    comando: "Diante desse cenário, a referida contribuição social previdenciária",
+    gabarito: "A",
+    alternativas: {
+      A: "poderia ser criada por lei ordinária e ser cobrada de servidores ativos, dos aposentados e dos pensionistas.",
+      B: "poderia ser criada por lei ordinária, mas só poderia ser cobrada de servidores ativos.",
+      C: "não poderia ser criada por lei ordinária, mas poderia ser cobrada de servidores ativos, dos aposentados e dos pensionistas.",
+      D: "não poderia ser criada por lei ordinária e só poderia ser cobrada de servidores ativos."
+    },
+    feedbacks: {
+      A: "Correta! A contribuição previdenciária do regime próprio estadual pode ser criada por lei ordinária (não precisa de lei complementar) e pode ser cobrada de ativos, aposentados e pensionistas — conforme o art. 149, §1º, da CF.",
+      B: "Incorreta. A CF autoriza expressamente a cobrança também de aposentados e pensionistas.",
+      C: "Incorreta. Lei ordinária é suficiente — não há exigência constitucional de lei complementar para esse tributo.",
+      D: "Incorreta. Erra nos dois pontos: lei ordinária é suficiente, e a cobrança pode atingir ativos, aposentados e pensionistas."
+    },
+    fundamento: "Art. 149, §1º, CF/88: os Estados, o Distrito Federal e os Municípios instituirão contribuição para custeio do regime próprio de previdência, cobrada de servidores ativos, aposentados e pensionistas. Não exige lei complementar.",
+    caqui: "Dois pontos para gravar: (1) lei ordinária basta para criar essa contribuição; (2) pode cobrar de todo mundo — ativo, aposentado e pensionista. A banca adora limitar a cobrança só aos ativos ou exigir lei complementar. Não caia nessa — a CF é clara nos dois pontos."
+  },
+  {
+    num: 9, exame: "XXXIII Exame de Ordem Unificado — 2021",
+    titulo: "Empréstimo Compulsório",
+    enunciado: "A Assembleia Legislativa do Estado Alfa, castigado por chuvas torrenciais que causaram graves enchentes, aprovou lei complementar estadual de iniciativa parlamentar que instituiu empréstimo compulsório sobre a aquisição de veículos automotores no território estadual, vinculando os recursos obtidos ao combate dos efeitos das enchentes.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "C",
+    alternativas: {
+      A: "A iniciativa da lei que instituiu o empréstimo compulsório é privativa do chefe do Poder Executivo.",
+      B: "O empréstimo compulsório necessita de lei complementar estadual para sua instituição.",
+      C: "O Estado não pode instituir empréstimos compulsórios.",
+      D: "A vinculação da receita de empréstimos compulsórios é inconstitucional."
+    },
+    feedbacks: {
+      A: "Incorreta. Embora a iniciativa federal seja do Executivo, o erro principal da questão é que o Estado não tem competência alguma para criar empréstimo compulsório.",
+      B: "Incorreta. Não há lei complementar estadual válida para empréstimo compulsório — esse tributo é exclusivo da União.",
+      C: "Correta! Empréstimo compulsório é de competência exclusiva da União, nos termos do art. 148 da CF. Estado nenhum pode criá-lo, seja em calamidade, seja em qualquer outra situação.",
+      D: "Incorreta. A vinculação é exigência constitucional — é obrigatória, não inconstitucional."
+    },
+    fundamento: "Art. 148, CF/88: compete exclusivamente à União instituir empréstimos compulsórios, mediante lei complementar, nas hipóteses de calamidade pública ou guerra externa, ou para investimento público urgente e relevante.",
+    caqui: "Empréstimo compulsório = só a União. Não há exceção. Estado em situação de enchente? Azar — não pode criar empréstimo compulsório. A questão ainda tenta te distrair com a iniciativa parlamentar e a vinculação, mas o erro fatal é a competência: Estado não pode, ponto final."
+  },
+  {
+    num: 10, exame: "XXXII Exame de Ordem Unificado — 2021",
+    titulo: "Imposto Extraordinário de Guerra",
+    enunciado: "Decretado estado de calamidade pública financeira, o Presidente da República edita Medida Provisória (MP), instituindo, temporariamente, imposto extraordinário, incidente sobre os serviços de qualquer natureza, a ser suprimido, gradativamente, no prazo máximo de 5 (cinco) anos. Em seu último parágrafo, a MP prevê que entra em vigor e passa a gerar efeitos a partir da sua publicação, o que se dá em 20/12/2019.",
+    comando: "Assinale a opção que apresenta o vício da referida Medida Provisória, tal como editada.",
+    gabarito: "B",
+    alternativas: {
+      A: "À Lei Complementar, e não a uma MP, cabe instituir impostos extraordinários.",
+      B: "A instituição de impostos extraordinários só é permitida na iminência ou no caso de guerra externa.",
+      C: "À União é vedado cobrar tributos no mesmo exercício financeiro em que haja sido publicada a lei que os instituiu ou aumentou.",
+      D: "A referida MP viola a competência constitucional privativa dos Municípios para instituir impostos sobre serviços de qualquer natureza."
+    },
+    feedbacks: {
+      A: "Incorreta. O imposto extraordinário não exige lei complementar — pode ser instituído por MP.",
+      B: "Correta! O imposto extraordinário de guerra só pode ser criado em caso de guerra externa ou sua iminência. Calamidade pública financeira não está entre as hipóteses constitucionais.",
+      C: "Incorreta. O imposto extraordinário não se sujeita ao princípio da anterioridade — pode ser cobrado imediatamente.",
+      D: "Incorreta. A CF autoriza expressamente que o imposto extraordinário utilize base econômica já tributada por outros entes, inclusive o ISS municipal."
+    },
+    fundamento: "Art. 154, II, CF/88: a União poderá instituir, na iminência ou no caso de guerra externa, impostos extraordinários. O pressuposto constitucional é a guerra — não qualquer calamidade. Além disso, o imposto extraordinário dispensa anterioridade.",
+    caqui: "Imposto extraordinário tem pressuposto específico: guerra externa ou sua iminência. Calamidade financeira? Não serve. Pandemia? Não serve. Crise econômica? Não serve. Só guerra. A banca tentou te distrair com a MP (que é válida para esse imposto) e com o ISS (que pode ser base mesmo pertencendo ao Município). O vício é o pressuposto errado."
+  },
+  {
+    num: 11, exame: "XXX Exame de Ordem Unificado — 2019",
+    titulo: "Moratória de IPTU Concedida por Estado",
+    enunciado: "No final do ano de 2018, o Município X foi gravemente afetado por fortes chuvas que causaram grandes estragos na localidade. Em razão disso, a Assembleia Legislativa do Estado Y, em que está localizado o Município X, aprovou lei estadual ordinária concedendo moratória quanto ao pagamento do Imposto Predial e Territorial Urbano (IPTU) do ano subsequente, em favor de todos os contribuintes desse imposto situados no Município X.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "C",
+    alternativas: {
+      A: "Lei ordinária não é espécie normativa adequada para concessão de moratória.",
+      B: "Lei estadual pode conceder moratória de IPTU, em situação de calamidade pública ou de guerra externa ou sua iminência.",
+      C: "Lei estadual não pode, em nenhuma hipótese, conceder moratória de IPTU.",
+      D: "A referida moratória somente poderia ser concedida mediante despacho da autoridade administrativa em caráter individual."
+    },
+    feedbacks: {
+      A: "Incorreta. Moratória pode ser concedida por lei ordinária — sem problema na espécie normativa.",
+      B: "Incorreta. A hipótese especial do CTN refere-se à União, não aos Estados. Estado não pode conceder moratória de IPTU em nenhuma circunstância.",
+      C: "Correta! Estado não tem competência para instituir IPTU, logo também não pode conceder moratória sobre ele. Quem cria o tributo é o único que pode conceder benefícios sobre ele — no caso do IPTU, apenas o Município.",
+      D: "Incorreta. Moratória pode ser concedida em caráter geral por lei — não precisa ser caso a caso por despacho."
+    },
+    fundamento: "Art. 152, I, CTN: a moratória só pode ser concedida pela pessoa jurídica de direito público competente para instituir o tributo. IPTU é municipal — apenas o Município pode conceder moratória sobre ele.",
+    caqui: "A lógica da moratória é a mesma da isenção: quem cria o tributo é o único que pode conceder o benefício. Estado não cria IPTU, então Estado não pode dar moratória de IPTU. Simples assim. A calamidade no enunciado é só para te emocionar e te fazer achar que existe exceção — não existe."
+  },
+  {
+    num: 12, exame: "XXX Exame de Ordem Unificado — 2019",
+    titulo: "Alíquota Mínima do IPVA por Resolução do Senado",
+    enunciado: "Projeto de Resolução do Senado Federal pretende fixar nacionalmente as alíquotas mínimas do Imposto sobre a Propriedade de Veículos Automotores (IPVA), tributo de competência estadual. Um Senador, membro da Comissão de Constituição, Justiça e Cidadania do Senado Federal, que terá de elaborar parecer sobre o tema, consulta você sobre sua opinião jurídica acerca desse projeto.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "B",
+    alternativas: {
+      A: "O Senado, por ser órgão do Poder Legislativo da União, não possui competência constitucional para, por Resolução, dispor sobre o tema, por se tratar de ingerência indevida da União na autonomia dos Estados.",
+      B: "É lícito ao Senado instituir a referida Resolução, pois existe autorização expressa na Constituição para tal fixação por Resolução do Senado.",
+      C: "A fixação de alíquota mínima de tributo, por mera Resolução do Senado, viola o princípio da legalidade tributária.",
+      D: "Resolução do Senado poderia tratar do tema, desde que ratificada por ao menos dois terços dos membros do Conselho Nacional de Política Fazendária (CONFAZ)."
+    },
+    feedbacks: {
+      A: "Incorreta. A própria CF atribui ao Senado essa competência — não é ingerência indevida, é previsão constitucional.",
+      B: "Correta! O art. 155, §6º, I, da CF autoriza expressamente o Senado a fixar alíquotas mínimas do IPVA por resolução. O IPVA é estadual, mas o Senado representa os Estados na federação e pode atuar nessa matéria.",
+      C: "Incorreta. Não viola legalidade — a própria CF autoriza esse mecanismo. O Senado age com base em competência constitucional expressa.",
+      D: "Incorreta. Não há exigência de ratificação pelo CONFAZ para essa resolução."
+    },
+    fundamento: "Art. 155, §6º, I, CF/88: o Senado Federal fixará, por resolução, as alíquotas mínimas do IPVA. Trata-se de limitação constitucional expressa à autonomia estadual, compatível com o pacto federativo.",
+    caqui: "Aqui a banca testa se você conhece as competências específicas do Senado em matéria tributária. O Senado representa os Estados — por isso faz sentido que ele fixe o piso de alíquotas do IPVA. Se o candidato só lembrar que IPVA é tributo estadual, vai errar achando que é interferência indevida. Mas a CF autoriza expressamente."
+  },
+  {
+    num: 13, exame: "XXVIII Exame de Ordem Unificado — 2019",
+    titulo: "COSIP no Distrito Federal",
+    enunciado: "O Distrito Federal instituiu, por lei distrital, a contribuição para o custeio do serviço de iluminação pública. Um contribuinte insurgiu-se judicialmente contra tal cobrança, alegando que a instituição pelo Distrito Federal seria inconstitucional.",
+    comando: "Diante desse quadro, assinale a afirmativa correta.",
+    gabarito: "D",
+    alternativas: {
+      A: "O contribuinte tem razão, uma vez que, em virtude das peculiaridades do Distrito Federal, é a União o ente federado competente pela instituição da contribuição para o custeio do serviço de iluminação pública na capital federal.",
+      B: "O contribuinte tem razão, uma vez que, em virtude das peculiaridades do Distrito Federal, é o Estado de Goiás o responsável pela instituição da contribuição para o custeio do serviço de iluminação pública na capital federal.",
+      C: "O contribuinte não tem razão, pois o Distrito Federal possui delegação de capacidade tributária ativa feita pela União para a cobrança da contribuição para o custeio do serviço de iluminação pública.",
+      D: "O contribuinte não tem razão, pois o Distrito Federal pode instituir a contribuição para o custeio do serviço de iluminação pública, assim como os Municípios."
+    },
+    feedbacks: {
+      A: "Incorreta. A competência não é da União — é do próprio Distrito Federal.",
+      B: "Incorreta. O Estado de Goiás não tem nenhuma relação com o Distrito Federal em matéria tributária.",
+      C: "Incorreta. Não há delegação da União — a competência do DF é originária, prevista diretamente na CF.",
+      D: "Correta! O art. 149-A da CF atribui aos Municípios e ao Distrito Federal competência para instituir a COSIP. O DF acumula competências estaduais e municipais — portanto pode instituir a COSIP assim como os Municípios."
+    },
+    fundamento: "Art. 149-A, CF/88: os Municípios e o Distrito Federal poderão instituir contribuição, na forma das respectivas leis, para o custeio do serviço de iluminação pública. O Distrito Federal acumula competências estaduais e municipais (art. 32, §1º, CF).",
+    caqui: "O Distrito Federal é um ente sui generis — acumula o que é de Estado e o que é de Município. Então sempre que a questão perguntar se o DF pode fazer algo que Município faz, a resposta é sim. A COSIP é contribuição municipal — e o DF pode instituí-la. Simples."
+  },
+  {
+    num: 14, exame: "XXVI Exame de Ordem Unificado — 2018",
+    titulo: "IPTU em Território Federal Dividido em Municípios",
+    enunciado: "Admita que, em 2016, foi criado um Território Federal no Brasil, dividido em municípios. Joaquim reside nesse Território e recebeu da União, no presente ano, uma guia para o pagamento do Imposto sobre a Propriedade Predial e Territorial Urbana (IPTU) do seu imóvel. Na semana seguinte, recebeu também uma guia do município em que mora.",
+    comando: "Levando em conta a situação descrita, assinale a afirmativa correta.",
+    gabarito: "B",
+    alternativas: {
+      A: "Apenas a União é competente para, no caso, exigir o IPTU.",
+      B: "Apenas o Município onde Joaquim reside é competente para exigir o IPTU.",
+      C: "Tanto o Estado, onde se localiza o Território, quanto o Município seriam competentes para exigir o IPTU.",
+      D: "Tanto a União quanto o Município em que Joaquim reside seriam competentes para exigir o IPTU."
+    },
+    feedbacks: {
+      A: "Incorreta. Como o Território tem Municípios, a União não cobra imposto municipal — quem cobra é o Município.",
+      B: "Correta! Território com Municípios: IPTU é do Município. A União só cobraria IPTU se o Território não fosse dividido em Municípios. A guia da União é indevida.",
+      C: "Incorreta. Não existe Estado no Território Federal — e Município não divide competência com ninguém no IPTU.",
+      D: "Incorreta. Não há competência concorrente entre União e Município para o IPTU — apenas o Município cobra."
+    },
+    fundamento: "Art. 147, CF/88: nos Territórios com Municípios, os impostos municipais (como IPTU) são de competência dos próprios Municípios. A União só acumula os municipais se o Território não tiver Municípios.",
+    caqui: "Essa questão é praticamente idêntica à Questão 5 — mas com o IPTU como exemplo concreto. O raciocínio é o mesmo: Território com Município = IPTU é do Município. A guia da União era indevida. Joaquim devia pagar só ao Município."
+  },
+  {
+    num: 15, exame: "XX Exame de Ordem Unificado — 2016",
+    titulo: "Lei Ordinária Alterando Taxa Criada por Lei Complementar",
+    enunciado: "O Estado Alfa institui, por meio de lei complementar, uma taxa pela prestação de serviço público específico e divisível. Posteriormente a alíquota e a base de cálculo da taxa vêm a ser modificadas por meio de lei ordinária, que as mantém em patamares compatíveis com a natureza do tributo e do serviço público prestado.",
+    comando: "A lei ordinária em questão é",
+    gabarito: "D",
+    alternativas: {
+      A: "integralmente inválida, pois lei ordinária não pode alterar lei complementar.",
+      B: "parcialmente válida – apenas no que concerne à alteração da base de cálculo, pois a modificação da alíquota só seria possível por meio de lei complementar.",
+      C: "parcialmente válida – apenas no que concerne à alteração da alíquota, pois a modificação da base de cálculo só seria possível por meio de lei complementar.",
+      D: "integralmente válida, pois a matéria por ela disciplinada não é constitucionalmente reservada à lei complementar."
+    },
+    feedbacks: {
+      A: "Incorreta. Lei ordinária pode alterar lei complementar quando a matéria não é constitucionalmente reservada à lei complementar — o que é o caso das taxas.",
+      B: "Incorreta. Nem alíquota nem base de cálculo de taxa exigem lei complementar. A alteração é válida nos dois aspectos.",
+      C: "Incorreta. Mesmo raciocínio — a base de cálculo de taxa também pode ser alterada por lei ordinária.",
+      D: "Correta! Taxa não é matéria reservada à lei complementar pela CF. Quando o Estado usou lei complementar para criar a taxa, foi uma opção legislativa — não uma exigência. Isso significa que lei ordinária posterior pode alterar a matéria."
+    },
+    fundamento: "A CF reserva à lei complementar matérias específicas. Taxa não está entre elas. Quando lei complementar trata de matéria não reservada constitucionalmente, ela tem apenas hierarquia formal — pode ser alterada por lei ordinária. Princípio do paralelismo mitigado.",
+    caqui: "Essa é uma armadilha clássica de hierarquia de leis. A regra geral é: lei ordinária não revoga lei complementar. Mas essa regra só vale quando a matéria é constitucionalmente reservada à lei complementar. Taxa não é. Então o Estado usou lei complementar por escolha, não por obrigação — e lei ordinária pode mudar depois. Pense assim: se a CF não exige lei complementar, qualquer lei pode tratar do assunto."
+  },
+  {
+    num: 16, exame: "XX Exame de Ordem Unificado — 2016",
+    titulo: "Contribuição sobre a Folha de Salários",
+    enunciado: "Determinado ente da Federação instituiu um tributo incidente sobre a folha de salários e demais rendimentos do trabalho pagos ou creditados, a qualquer título, à pessoa física que preste serviço a empregador privado, ainda que sem vínculo empregatício, com o objetivo de financiar a seguridade social.",
+    comando: "Em sintonia com a CRFB/88, assinale a opção que indica o ente da Federação competente para a instituição do tributo descrito e o nome do tributo em questão.",
+    gabarito: "B",
+    alternativas: {
+      A: "Estados-membros e o Distrito Federal. Contribuição previdenciária.",
+      B: "União. Contribuição social.",
+      C: "União. Imposto sobre a renda.",
+      D: "Todos os entes da Federação. Contribuições sociais."
+    },
+    feedbacks: {
+      A: "Incorreta. Estados não têm competência para criar contribuição social sobre empregadores privados.",
+      B: "Correta! Contribuição sobre folha de salários para financiar a seguridade social é de competência exclusiva da União — art. 195, I, 'a', CF. É uma contribuição social, não imposto.",
+      C: "Incorreta. O tributo incide sobre a folha de salários do empregador, não sobre a renda da pessoa física. São bases econômicas distintas.",
+      D: "Incorreta. Essa competência é exclusiva da União — não é de todos os entes."
+    },
+    fundamento: "Art. 195, I, 'a', CF/88: a seguridade social será financiada pela contribuição do empregador incidente sobre a folha de salários e demais rendimentos do trabalho. Competência exclusiva da União.",
+    caqui: "Não confunda: contribuição previdenciária de servidor público (que pode ser criada por Estado, DF ou Município para seu próprio regime) com contribuição sobre folha de salários de empregador privado (que é da União para custear a seguridade social). São tributos diferentes com competências diferentes."
+  },
+  {
+    num: 17, exame: "XIX Exame de Ordem Unificado — 2016",
+    titulo: "Competência Residual para Instituição de Novos Impostos",
+    enunciado: "O Estado X, visando aumentar a sua arrecadação, instituiu novo imposto, não previsto na Constituição Federal.",
+    comando: "Sobre a hipótese, assinale a afirmativa correta.",
+    gabarito: "C",
+    alternativas: {
+      A: "O Estado X pode instituir imposto, mediante lei complementar, desde que previsto na Constituição Estadual.",
+      B: "Para exercer a competência residual do Estado X, é necessária lei de iniciativa do Governador do Estado.",
+      C: "O Estado X não pode instituir o imposto novo, tendo em vista que a competência residual para a instituição de novos impostos é somente da União.",
+      D: "É vedada à União, aos Estados, ao Distrito Federal e aos Municípios, a instituição de impostos não previstos na Constituição Federal."
+    },
+    feedbacks: {
+      A: "Incorreta. Constituição Estadual não cria competência tributária. A competência é definida pela CF/88 — e Estados não têm competência residual.",
+      B: "Incorreta. Estado não tem competência residual — por isso nem faz sentido discutir a iniciativa do Governador.",
+      C: "Correta! A competência residual — para criar impostos não previstos na CF — é exclusiva da União (art. 154, I). Estados, DF e Municípios só podem criar os impostos expressamente listados na CF.",
+      D: "Incorreta. A União pode criar novos impostos — tem competência residual. A vedação não é para todos os entes, mas sim para Estados, DF e Municípios."
+    },
+    fundamento: "Art. 154, I, CF/88: a União pode instituir, mediante lei complementar, impostos não previstos na CF, desde que não cumulativos e com fato gerador e base de cálculo distintos dos existentes. Essa competência é exclusiva da União.",
+    caqui: "Competência residual = só União. Estados e Municípios têm lista fechada — só os impostos que a CF expressamente previu. A alternativa D é a mais tentadora (parece verdadeira), mas está errada porque a União pode criar novos impostos. O erro do Estado X é não ter essa competência — e não há como adquiri-la por lei estadual ou constituição estadual."
+  },
+  {
+    num: 18, exame: "XV Exame de Ordem Unificado — 2014",
+    titulo: "Simples Nacional e Fiscalização Compartilhada",
+    enunciado: "Em dezembro de 2006, foi publicada a Lei Complementar nº 123, que instituiu o Estatuto Nacional da Microempresa e da Empresa de Pequeno Porte, e criou novo regime de tributação simplificada, abrangendo, além dos impostos e contribuições federais, o ICMS, bem como o ISS.",
+    comando: "Sobre a hipótese, assinale a afirmativa correta.",
+    gabarito: "D",
+    alternativas: {
+      A: "A referida lei é inconstitucional, pois é vedada à União instituir benefício fiscal de tributo de competência dos Estados, do Distrito Federal e dos Municípios.",
+      B: "O regime de tributação simplificada é obrigatório a todos os contribuintes que cumpram os requisitos previstos na referida lei complementar.",
+      C: "A referida lei é inconstitucional, no que se refere ao ICMS, pois institui benefício fiscal do imposto sem a competente autorização por meio de convênio do CONFAZ.",
+      D: "Segundo a Constituição Federal, a fiscalização do cumprimento das obrigações principais e acessórias do regime único de arrecadação poderá ser compartilhada pelos entes da Federação."
+    },
+    feedbacks: {
+      A: "Incorreta. A própria CF autoriza esse regime único de arrecadação — é exceção constitucional expressa à vedação de isenção heterônoma.",
+      B: "Incorreta. A adesão ao Simples Nacional é facultativa — não é obrigatória para quem preenche os requisitos.",
+      C: "Incorreta. O Simples Nacional tem autorização constitucional própria — não precisa de convênio do CONFAZ.",
+      D: "Correta! A CF autoriza expressamente o compartilhamento da fiscalização entre os entes federativos no regime do Simples Nacional."
+    },
+    fundamento: "Art. 146, parágrafo único, CF/88: lei complementar pode estabelecer regime único de arrecadação para ME e EPP, com adesão facultativa e fiscalização compartilhada entre os entes da Federação.",
+    caqui: "O Simples Nacional é constitucional — a CF criou esse regime especialmente. A adesão é opcional (não confunda com obrigatória). E a fiscalização pode ser compartilhada entre União, Estados e Municípios. Esses três pontos são os que a banca mais cobra sobre o Simples."
+  },
+  {
+    num: 19, exame: "XV Exame de Ordem Unificado — 2014",
+    titulo: "Ausência de Lei Complementar e Competência Legislativa Plena dos Estados",
+    enunciado: "O Art. 146, III, 'a', da Constituição Federal estabelece que lei complementar deve trazer a definição dos fatos geradores, da base de cálculo e dos contribuintes dos impostos previstos na Constituição. Caso não exista lei complementar prevendo tais definições relativamente aos impostos estaduais, os Estados",
+    comando: "Assinale a afirmativa correta.",
+    gabarito: "C",
+    alternativas: {
+      A: "não podem instituir e cobrar seus impostos, sob pena de violação do Art. 146 da Constituição.",
+      B: "podem instituir e cobrar seus impostos, desde que celebrem convênio para estabelecer normas gerais.",
+      C: "podem instituir e cobrar seus impostos, pois possuem competência legislativa plena até que a lei complementar venha a ser editada.",
+      D: "podem instituir e cobrar seus impostos, desde que seja publicada Medida Provisória autorizando."
+    },
+    feedbacks: {
+      A: "Incorreta. A ausência de lei complementar não paralisa a competência tributária dos Estados.",
+      B: "Incorreta. Não há exigência de convênio — os Estados legislam plenamente por força do art. 24, §3º, da CF.",
+      C: "Correta! Art. 24, §3º, CF: inexistindo lei federal sobre normas gerais, os Estados exercem competência legislativa plena. Quando a lei complementar for editada, ela prevalece — e as normas estaduais incompatíveis têm eficácia suspensa.",
+      D: "Incorreta. Medida Provisória não é requisito para o exercício da competência plena estadual."
+    },
+    fundamento: "Art. 24, §3º, CF/88: inexistindo lei federal sobre normas gerais, os Estados exercerão a competência legislativa plena para atender às suas peculiaridades. Quando a lei geral vier, prevalece — as estaduais incompatíveis ficam suspensas (não revogadas).",
+    caqui: "A ausência de lei complementar federal não trava o Estado — ele vai em frente e legisla plenamente. Depois, se a lei complementar vier, o Estado se adapta. É como se a União tivesse um prazo infinito para regulamentar e, enquanto não o faz, os Estados não ficam paralisados. Detalhe importante: as normas estaduais são suspensas (não revogadas) quando a lei complementar surgir."
+  },
+  {
+    num: 20, exame: "X Exame de Ordem Unificado — 2013",
+    titulo: "Competência Residual da União",
+    enunciado: "A União criou um novo imposto não previsto na CRFB mediante lei complementar sobre a propriedade de veículos de duas rodas não motorizados, que adota fato gerador e base de cálculo diferente dos demais discriminados na Constituição.",
+    comando: "Nessa situação, a União terá feito uso de competência",
+    gabarito: "B",
+    alternativas: {
+      A: "comum.",
+      B: "residual.",
+      C: "cumulativa.",
+      D: "extraordinária."
+    },
+    feedbacks: {
+      A: "Incorreta. Competência comum refere-se a atribuições administrativas compartilhadas (saúde, educação, etc.) — não à criação de tributos.",
+      B: "Correta! Todos os requisitos da competência residual estão presentes: novo imposto não previsto na CF, instituído por lei complementar, com fato gerador e base de cálculo distintos dos impostos já existentes.",
+      C: "Incorreta. Competência cumulativa é a que a União exerce nos Territórios Federais, acumulando competências federal, estadual e municipal.",
+      D: "Incorreta. Competência extraordinária é a do imposto de guerra — pressupõe guerra externa ou sua iminência."
+    },
+    fundamento: "Art. 154, I, CF/88: a União pode exercer competência residual para criar impostos não previstos na CF, mediante lei complementar, com fato gerador e base de cálculo distintos, e de forma não cumulativa.",
+    caqui: "Essa questão pede o nome técnico — e é só montar o checklist: imposto novo + não previsto na CF + lei complementar + fato gerador diferente = competência residual. As outras opções (comum, cumulativa, extraordinária) têm significados próprios e específicos que vale memorizar para não confundir."
+  }
+];
+
+let current = 0;
+const estado = Array(QUESTOES.length).fill(null);
+
+function init() {
+  const nav = document.getElementById('nav-wrap');
+  const container = document.getElementById('questions-container');
+  QUESTOES.forEach((q, i) => {
+    const nb = document.createElement('button');
+    nb.className = 'nav-btn' + (i === 0 ? ' active' : '');
+    nb.textContent = i + 1;
+    nb.onclick = () => goTo(i);
+    nb.id = 'nav-' + i;
+    nav.appendChild(nb);
+    const card = document.createElement('div');
+    card.className = 'q-card' + (i === 0 ? ' visible' : '');
+    card.id = 'card-' + i;
+    card.innerHTML = buildCard(q, i);
+    container.appendChild(card);
+  });
+  updatePagination();
+  updateScore();
+}
+
+function buildCard(q, i) {
+  const alts = Object.entries(q.alternativas).map(([letra, texto]) =>
+    `<button class="alt-btn" onclick="responder(${i}, '${letra}', this)" data-letra="${letra}">
+      <span class="alt-letter">${letra}</span>
+      <span class="alt-text">${texto}</span>
+    </button>`
+  ).join('');
+  return `
+    <div class="q-header">
+      <span class="q-num">Questão ${q.num}</span>
+      ${q.exame ? `<span class="q-exame">${q.exame}</span>` : ''}
+    </div>
+    <h2 class="q-titulo">${q.titulo}</h2>
+    <div class="enunciado">${q.enunciado}</div>
+    <p class="comando">${q.comando}</p>
+    <div class="alternativas" id="alts-${i}">${alts}</div>
+    <div class="feedback" id="fb-${i}"></div>
+    <div class="fundamento-box" id="fund-${i}">
+      <h4>📖 Fundamento legal</h4>
+      ${q.fundamento}
+    </div>
+    <div class="caqui-box" id="caqui-${i}">
+      <h4>🍊 Explicação didática do Professor Caqui</h4>
+      ${q.caqui}
+    </div>
+    <div class="card-actions">
+      <div class="btn-group">
+        <button class="btn green" id="btn-fund-${i}" onclick="toggleFund(${i})">Ver fundamento legal</button>
+        <button class="btn caqui" id="btn-caqui-${i}" onclick="toggleCaqui(${i})">Explicação do Prof. Caqui</button>
+        <button class="btn" id="btn-reset-${i}" onclick="resetQ(${i})">↺ Tentar novamente</button>
+      </div>
+      <span class="status-text" id="status-${i}"></span>
+    </div>`;
+}
+
+function responder(idx, letra, btn) {
+  if (estado[idx] !== null) return;
+  estado[idx] = letra;
+  const q = QUESTOES[idx];
+  document.querySelectorAll(`#alts-${idx} .alt-btn`).forEach(b => {
+    b.disabled = true;
+    if (b.dataset.letra === q.gabarito) b.classList.add('correct');
+    if (b.dataset.letra === letra && letra !== q.gabarito) b.classList.add('wrong');
+  });
+  const acertou = letra === q.gabarito;
+  const fb = document.getElementById('fb-' + idx);
+  fb.className = 'feedback show ' + (acertou ? 'acerto' : 'erro');
+  fb.innerHTML = `<strong>${acertou ? '✓ Correta!' : '✗ Incorreta.'}</strong> ${q.feedbacks[letra]}`;
+  document.getElementById('status-' + idx).textContent = acertou ? 'Acerto!' : 'Gabarito: ' + q.gabarito;
+  document.getElementById('btn-reset-' + idx).className = 'btn show';
+  document.getElementById('btn-fund-' + idx).className = 'btn green show';
+  document.getElementById('btn-caqui-' + idx).className = 'btn caqui show';
+  const navBtn = document.getElementById('nav-' + idx);
+  navBtn.classList.remove('active');
+  navBtn.classList.add(acertou ? 'correto' : 'errado');
+  if (idx === current) navBtn.classList.add('active');
+  updateScore();
+}
+
+function toggleFund(idx) {
+  const box = document.getElementById('fund-' + idx);
+  const btn = document.getElementById('btn-fund-' + idx);
+  const visible = box.classList.contains('show');
+  box.className = visible ? 'fundamento-box' : 'fundamento-box show';
+  btn.textContent = visible ? 'Ver fundamento legal' : 'Ocultar fundamento';
+}
+
+function toggleCaqui(idx) {
+  const box = document.getElementById('caqui-' + idx);
+  const btn = document.getElementById('btn-caqui-' + idx);
+  const visible = box.classList.contains('show');
+  box.className = visible ? 'caqui-box' : 'caqui-box show';
+  btn.textContent = visible ? 'Explicação do Prof. Caqui' : 'Ocultar explicação';
+}
+
+function resetQ(idx) {
+  estado[idx] = null;
+  document.querySelectorAll(`#alts-${idx} .alt-btn`).forEach(b => { b.disabled = false; b.className = 'alt-btn'; });
+  document.getElementById('fb-' + idx).className = 'feedback';
+  document.getElementById('fund-' + idx).className = 'fundamento-box';
+  document.getElementById('btn-fund-' + idx).className = 'btn green';
+  document.getElementById('btn-fund-' + idx).textContent = 'Ver fundamento legal';
+  document.getElementById('caqui-' + idx).className = 'caqui-box';
+  document.getElementById('btn-caqui-' + idx).className = 'btn caqui';
+  document.getElementById('btn-caqui-' + idx).textContent = 'Explicação do Prof. Caqui';
+  document.getElementById('btn-reset-' + idx).className = 'btn';
+  document.getElementById('status-' + idx).textContent = '';
+  document.getElementById('nav-' + idx).className = 'nav-btn' + (idx === current ? ' active' : '');
+  updateScore();
+}
+
+function goTo(idx) {
+  document.getElementById('card-' + current).classList.remove('visible');
+  document.getElementById('nav-' + current).classList.remove('active');
+  current = idx;
+  document.getElementById('card-' + current).classList.add('visible');
+  document.getElementById('nav-' + current).classList.add('active');
+  updatePagination();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function navPage(dir) {
+  const next = current + dir;
+  if (next >= 0 && next < QUESTOES.length) goTo(next);
+}
+
+function updatePagination() {
+  document.getElementById('pg-info').textContent = (current + 1) + ' de ' + QUESTOES.length;
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').disabled = current === QUESTOES.length - 1;
+}
+
+function updateScore() {
+  const respondidas = estado.filter(e => e !== null).length;
+  const acertos = estado.filter((e, i) => e === QUESTOES[i].gabarito).length;
+  const erros = respondidas - acertos;
+  document.getElementById('sc-total').textContent = respondidas;
+  document.getElementById('sc-acertos').textContent = acertos;
+  document.getElementById('sc-erros').textContent = erros;
+  const pct = Math.round((respondidas / QUESTOES.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = respondidas + ' de ' + QUESTOES.length + ' respondidas';
+}
+
+init();
+</script>
+</body>
+</html>
