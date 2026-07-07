@@ -84,7 +84,7 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f4f1eb; min-
 <div class="page-header">
   <span class="tema-badge">📌 Banco de Questões OAB — Tributário</span>
   <h1 class="page-title">Competência Tributária</h1>
-  <p class="page-sub">20 questões — Exames de Ordem 2013 a 2025</p>
+  <p class="page-sub">28 questões — Exames de Ordem 2013 a 2025 + Reforma Tributária (EC 132/2023)</p>
 </div>
 
 <div class="score-bar">
@@ -164,13 +164,13 @@ const QUESTOES = [
       D: "Apesar de poder ser classificada como veículo automotor, o IPVA não incidirá por exceção constitucional."
     },
     feedbacks: {
-      A: "Incorreta. A Constituição não proíbe expressamente a incidência de IPVA sobre veículos aquáticos. A exclusão vem da interpretação do STF, não de vedação literal.",
-      B: "Incorreta. O critério não é o local de utilização do veículo, mas o entendimento consolidado do STF sobre embarcações e aeronaves.",
-      C: "Incorreta. O problema não é a espécie normativa, mas a impossibilidade de incidência do IPVA sobre embarcações segundo o STF.",
-      D: "Correta! O STF firmou entendimento de que o IPVA não incide sobre embarcações e aeronaves — apenas sobre veículos terrestres. A exceção é jurisprudencial, não literal, mas é constitucional na interpretação do Supremo."
+      A: "Incorreta. Desde a Reforma Tributária (EC 132/2023), a Constituição passou a autorizar expressamente a incidência de IPVA sobre veículos automotores aquáticos e aéreos (art. 155, §6º, III, CF) — não há mais proibição geral. A antiga jurisprudência do STF que excluía embarcações e aeronaves foi superada pelo novo texto constitucional.",
+      B: "Incorreta. O critério não é o local de utilização do veículo. Desde a EC 132/2023, o IPVA pode incidir sobre veículos aquáticos e aéreos como regra — a análise correta está nas exceções específicas do art. 155, §6º, III, não no local de uso.",
+      C: "Incorreta. Não é necessária lei complementar. A incidência (e suas exceções) já está definida diretamente no texto constitucional (art. 155, §6º, III); cabe à lei estadual ordinária apenas instituir o imposto dentro desses limites.",
+      D: "Correta! A Reforma Tributária (EC 132/2023) passou a permitir IPVA sobre veículos aquáticos e aéreos — MAS o art. 155, §6º, III, alínea 'c', da CF, criou uma exceção específica para plataformas suscetíveis de se locomoverem na água por meios próprios cuja finalidade principal seja a exploração de atividades econômicas em águas territoriais e na zona econômica exclusiva. A Unidade Flutuante de Produção se enquadra exatamente nessa exceção: apesar de ser 'veículo automotor' (tem motor próprio), sua finalidade é a exploração de petróleo, não locomoção — por isso o IPVA não incide."
     },
-    fundamento: "Art. 155, III, CF/88: compete aos Estados instituir IPVA. O STF, ao interpretar o dispositivo, consolidou que embarcações e aeronaves não são alcançadas pelo IPVA — apenas veículos terrestres. Tema 708 da repercussão geral do STF.",
-    caqui: "O STF é claro: IPVA só em veículo terrestre. Embarcação e aeronave ficam de fora, mesmo que tenham motor. Essa questão é uma pegadinha clássica — a unidade flutuante tem motor, mas não roda em terra. Na prova, sempre que aparecer IPVA sobre embarcação ou avião, é inconstitucional."
+    fundamento: "Art. 155, §6º, III, CF/88 (incluído pela EC 132/2023): o IPVA passou a incidir sobre veículos automotores terrestres, aquáticos e aéreos, superando a antiga jurisprudência do STF (RE 379.572, RE 134.509) que restringia o imposto a veículos terrestres. Porém, a própria Reforma criou exceções expressas na alínea 'c': plataformas e embarcações cuja finalidade principal seja a exploração de atividades econômicas em águas territoriais e na zona econômica exclusiva (como plataformas de petróleo) ficam FORA do campo de incidência do IPVA, mesmo tendo motor próprio.",
+    caqui: "Cuidado com esse tema — é uma das maiores pegadinhas pós-Reforma: muita gente ainda decora 'IPVA não incide em barco nem avião' como regra absoluta, mas isso mudou com a EC 132/2023! A regra virou o contrário: agora incide, sim, sobre veículos aquáticos e aéreos. O que restou foram exceções pontuais — e uma delas é exatamente para plataformas de exploração de petróleo, como a do caso. Pense assim: a exceção não é porque 'é barco', é porque a finalidade dela é explorar petróleo, não se locomover. Se fosse um iate de lazer com motor, hoje pagaria IPVA numa boa."
   },
   {
     num: 4, exame: "XLIV Exame de Ordem Unificado — 2025",
@@ -379,8 +379,8 @@ const QUESTOES = [
       C: "Incorreta. Não há delegação da União — a competência do DF é originária, prevista diretamente na CF.",
       D: "Correta! O art. 149-A da CF atribui aos Municípios e ao Distrito Federal competência para instituir a COSIP. O DF acumula competências estaduais e municipais — portanto pode instituir a COSIP assim como os Municípios."
     },
-    fundamento: "Art. 149-A, CF/88: os Municípios e o Distrito Federal poderão instituir contribuição, na forma das respectivas leis, para o custeio do serviço de iluminação pública. O Distrito Federal acumula competências estaduais e municipais (art. 32, §1º, CF).",
-    caqui: "O Distrito Federal é um ente sui generis — acumula o que é de Estado e o que é de Município. Então sempre que a questão perguntar se o DF pode fazer algo que Município faz, a resposta é sim. A COSIP é contribuição municipal — e o DF pode instituí-la. Simples."
+    fundamento: "Art. 149-A, CF/88: os Municípios e o Distrito Federal poderão instituir contribuição, na forma das respectivas leis, para o custeio, a expansão e a melhoria do serviço de iluminação pública e de sistemas de monitoramento para segurança e preservação de logradouros públicos (redação ampliada pela EC 132/2023 — antes falava só em 'custeio do serviço de iluminação pública'). O Distrito Federal acumula competências estaduais e municipais (art. 32, §1º, CF).",
+    caqui: "O Distrito Federal é um ente sui generis — acumula o que é de Estado e o que é de Município. Então sempre que a questão perguntar se o DF pode fazer algo que Município faz, a resposta é sim. A COSIP é contribuição municipal — e o DF pode instituí-la. Detalhe pós-Reforma: a EC 132/2023 ampliou o que a COSIP pode custear — não é só iluminação pública, agora inclui expansão, melhoria e até sistemas de monitoramento para segurança de logradouros. Se a prova mencionar 'câmeras de segurança pública municipal' custeadas por contribuição, pode ser essa."
   },
   {
     num: 14, exame: "XXVI Exame de Ordem Unificado — 2018",
@@ -484,8 +484,8 @@ const QUESTOES = [
       C: "Incorreta. O Simples Nacional tem autorização constitucional própria — não precisa de convênio do CONFAZ.",
       D: "Correta! A CF autoriza expressamente o compartilhamento da fiscalização entre os entes federativos no regime do Simples Nacional."
     },
-    fundamento: "Art. 146, parágrafo único, CF/88: lei complementar pode estabelecer regime único de arrecadação para ME e EPP, com adesão facultativa e fiscalização compartilhada entre os entes da Federação.",
-    caqui: "O Simples Nacional é constitucional — a CF criou esse regime especialmente. A adesão é opcional (não confunda com obrigatória). E a fiscalização pode ser compartilhada entre União, Estados e Municípios. Esses três pontos são os que a banca mais cobra sobre o Simples."
+    fundamento: "Art. 146, §1º, CF/88 (renumerado de parágrafo único para §1º pela EC 132/2023): lei complementar pode estabelecer regime único de arrecadação para ME e EPP (o Simples Nacional), com adesão facultativa e fiscalização compartilhada entre os entes da Federação. Novidade da Reforma: esse regime único agora também abrange o IBS e a CBS — o optante pode recolhê-los dentro do DAS ou, alternativamente, apurá-los pelo regime regular (fora do Simples), aproveitando mais créditos.",
+    caqui: "O Simples Nacional é constitucional — a CF criou esse regime especialmente. A adesão é opcional (não confunda com obrigatória). E a fiscalização pode ser compartilhada entre União, Estados e Municípios. Esses três pontos são os que a banca mais cobra sobre o Simples. Novidade pós-Reforma: agora o Simples também engloba IBS e CBS — mas a empresa pode escolher recolher esses dois tributos dentro do DAS (mais simples) ou apurá-los separadamente pelo regime regular (mais créditos). É outra camada de opção dentro da opção."
   },
   {
     num: 19, exame: "XV Exame de Ordem Unificado — 2014",
@@ -528,6 +528,182 @@ const QUESTOES = [
     },
     fundamento: "Art. 154, I, CF/88: a União pode exercer competência residual para criar impostos não previstos na CF, mediante lei complementar, com fato gerador e base de cálculo distintos, e de forma não cumulativa.",
     caqui: "Essa questão pede o nome técnico — e é só montar o checklist: imposto novo + não previsto na CF + lei complementar + fato gerador diferente = competência residual. As outras opções (comum, cumulativa, extraordinária) têm significados próprios e específicos que vale memorizar para não confundir."
+  },
+  {
+    num: 21,
+    exame: "",
+    titulo: "IBS — Competência Compartilhada (Reforma Tributária)",
+    enunciado: "O Estado Alfa e o Município Beta, situado em seu território, pretendem instituir, cada um por lei própria, o Imposto sobre Bens e Serviços (IBS), previsto no art. 156-A da Constituição Federal, cada ente fixando livremente sua própria alíquota e suas próprias regras de apuração, de forma independente um do outro.",
+    comando: "Diante desse cenário, à luz da Emenda Constitucional nº 132/2023, assinale a afirmativa correta.",
+    gabarito: "C",
+    alternativas: {
+      A: "A pretensão é correta: o IBS é imposto de competência privativa dos Municípios, cabendo aos Estados apenas fiscalizar sua cobrança.",
+      B: "A pretensão é correta: o IBS é imposto de competência privativa dos Estados, cabendo aos Municípios apenas parcela da arrecadação.",
+      C: "A pretensão é incorreta: o IBS é de competência compartilhada entre Estados, Distrito Federal e Municípios, com uma única lei complementar nacional definindo suas normas gerais, e não pode ser instituído por leis distintas e independentes de cada ente.",
+      D: "A pretensão é incorreta: o IBS é imposto de competência exclusiva da União, sendo os Estados e Municípios meros beneficiários do repasse constitucional."
+    },
+    feedbacks: {
+      A: "Incorreta. O IBS não é privativo dos Municípios — é compartilhado com Estados e Distrito Federal.",
+      B: "Incorreta. O IBS não é privativo dos Estados — é compartilhado com Municípios e Distrito Federal.",
+      C: "Correta! O art. 156-A, CF (incluído pela EC 132/2023), instituiu o IBS como imposto de competência compartilhada entre Estados, Distrito Federal e Municípios — um modelo novo, diferente da competência privativa clássica. A alíquota final é a soma da alíquota estadual e da municipal, mas as normas gerais (fato gerador, base de cálculo, não cumulatividade) são unificadas por lei complementar nacional — os entes não podem legislar de forma independente e fragmentada como faziam com o ICMS e o ISS.",
+      D: "Incorreta. O IBS não é da União — a União tem a CBS (Contribuição sobre Bens e Serviços), tributo distinto."
+    },
+    fundamento: "Art. 156-A, CF/88 (incluído pela EC 132/2023): o IBS substitui gradualmente o ICMS (estadual) e o ISS (municipal), sendo de competência compartilhada entre Estados, Distrito Federal e Municípios. Isso cria uma nova categoria de competência tributária, diferente das clássicas (privativa, comum, residual etc.): um único imposto, com legislação uniforme nacional via lei complementar, mas cuja alíquota é o somatório da alíquota fixada pelo Estado e pela alíquota fixada pelo Município de destino da operação.",
+    caqui: "O IBS quebra a lógica clássica que você decorou (privativa = um ente só; comum = vários entes, cada um com seu tributo próprio). Aqui é um imposto SÓ, com regras nacionais únicas, mas a arrecadação e a fixação de parte da alíquota são compartilhadas entre Estado e Município. Não dá pra encaixar nas caixinhas antigas — é um modelo novo, criado especificamente pela Reforma. Guarda o nome: competência compartilhada."
+  },
+  {
+    num: 22,
+    exame: "",
+    titulo: "Imposto Seletivo — Nova Competência da União (Reforma Tributária)",
+    enunciado: "A União pretende instituir, por lei ordinária, o Imposto Seletivo (IS), incidente sobre a produção e a comercialização de determinado agrotóxico considerado prejudicial ao meio ambiente, com o objetivo de desestimular seu consumo no mercado interno.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "A",
+    alternativas: {
+      A: "A União tem competência para instituir o Imposto Seletivo sobre bens e serviços prejudiciais à saúde ou ao meio ambiente, tributo de caráter extrafiscal criado pela Reforma Tributária.",
+      B: "A União não tem competência para instituir esse imposto, pois a tributação de agrotóxicos é matéria de competência exclusiva dos Estados, por força do princípio da defesa do meio ambiente.",
+      C: "A União tem competência para instituir o tributo, mas somente mediante lei complementar, nunca por lei ordinária.",
+      D: "A União não tem competência para instituir esse imposto, pois teria efeito equivalente a uma contribuição de intervenção no domínio econômico, de regramento distinto."
+    },
+    feedbacks: {
+      A: "Correta! O art. 153, VIII, CF (incluído pela EC 132/2023), atribui à União competência para instituir o Imposto Seletivo sobre produção, extração, comercialização ou importação de bens e serviços prejudiciais à saúde ou ao meio ambiente. É tributo de função extrafiscal — não visa arrecadar, mas desestimular o consumo — e suas alíquotas são fixadas por lei ordinária (art. 153, §6º, VI, CF).",
+      B: "Incorreta. A competência é da União, não dos Estados — o IS é imposto federal, criado especificamente pela Reforma Tributária.",
+      C: "Incorreta. As alíquotas do Imposto Seletivo são fixadas por lei ordinária, não por lei complementar — a própria CF é expressa nesse ponto.",
+      D: "Incorreta. O Imposto Seletivo é imposto (art. 153, VIII), tributo distinto da CIDE (art. 149) — não se confundem, cada um com regramento próprio."
+    },
+    fundamento: "Art. 153, VIII, e §6º, CF/88 (incluídos pela EC 132/2023): compete à União instituir o Imposto Seletivo (IS), incidente sobre produção, extração, comercialização ou importação de bens e serviços prejudiciais à saúde ou ao meio ambiente. Tem incidência monofásica, não incide sobre exportações, energia elétrica e telecomunicações, e suas alíquotas são fixadas por lei ordinária.",
+    caqui: "O Imposto Seletivo é o 'imposto do pecado' — apelido que a doutrina deu porque ele mira bens que fazem mal (cigarro, bebida alcoólica, agrotóxico). É novo, é da União, e sua função não é arrecadar — é desestimular o consumo. Isso é chamado de função extrafiscal. Lembra desse conceito: extrafiscalidade = tributo usado como ferramenta de política pública, não só para encher o cofre."
+  },
+  {
+    num: 23,
+    exame: "",
+    titulo: "Progressividade Obrigatória do ITCMD (Reforma Tributária)",
+    enunciado: "O Estado Alfa editou lei ordinária estadual fixando alíquota única e fixa de 4% para o ITCMD, independentemente do valor do quinhão, do legado ou da doação recebidos por cada herdeiro ou donatário, sob o argumento de que a progressividade de alíquotas em impostos reais é uma mera faculdade do ente tributante.",
+    comando: "Diante desse cenário, à luz da Constituição Federal, assinale a afirmativa correta.",
+    gabarito: "B",
+    alternativas: {
+      A: "A lei estadual está correta, pois a progressividade do ITCMD é sempre facultativa, cabendo a cada Estado decidir se a adota.",
+      B: "A lei estadual é inconstitucional, pois a Reforma Tributária tornou obrigatória a progressividade do ITCMD em razão do valor do quinhão, do legado ou da doação.",
+      C: "A lei estadual é inconstitucional, mas apenas porque a alíquota de 4% excede o teto máximo fixado pelo Senado Federal para o ITCMD.",
+      D: "A lei estadual está correta, pois a progressividade de impostos reais como o ITCMD é vedada pela Constituição Federal."
+    },
+    feedbacks: {
+      A: "Incorreta. Antes da Reforma, a progressividade do ITCMD era discutida (o STF já a admitia, mas não era expressamente exigida pelo texto constitucional). Com a EC 132/2023, deixou de ser faculdade — passou a ser exigência constitucional.",
+      B: "Correta! O art. 155, §1º, VI, CF (incluído pela EC 132/2023) determina que o ITCMD 'será progressivo em razão do valor do quinhão, do legado ou da doação'. Não é mais uma opção do legislador estadual — é comando constitucional obrigatório. Uma lei estadual com alíquota única e fixa, portanto, é inconstitucional por omissão em atender a essa exigência.",
+      C: "Incorreta. O problema não está no percentual da alíquota em si (que pode estar dentro do teto do Senado), mas na ausência de progressividade — a lei não escalona a alíquota conforme o valor recebido.",
+      D: "Incorreta. É o oposto: a progressividade do ITCMD não é vedada — é constitucionalmente obrigatória desde a Reforma."
+    },
+    fundamento: "Art. 155, §1º, VI, CF/88 (incluído pela EC 132/2023): o ITCMD será progressivo em razão do valor do quinhão, do legado ou da doação. Antes da Reforma, o STF já admitia a progressividade do ITCMD (RE 562.045), mas o texto constitucional não a exigia expressamente. Com a EC 132/2023, a progressividade deixou de ser discricionária e passou a ser mandamento constitucional direto.",
+    caqui: "Antes: podia ser progressivo (o STF permitia, mas não obrigava). Agora: TEM que ser progressivo — a Reforma transformou uma possibilidade em obrigação. Se aparecer uma lei estadual de ITCMD com alíquota única, sem escalonar pelo valor da herança ou doação, ela está desatualizada e inconstitucional pelo novo texto."
+  },
+  {
+    num: 24,
+    exame: "",
+    titulo: "Novos Princípios Tributários Constitucionais (Reforma Tributária)",
+    enunciado: "Em parecer técnico sobre um projeto de lei complementar que disciplina o novo Imposto sobre Bens e Serviços (IBS), um consultor legislativo argumenta que a proposta deveria observar, entre outros, os princípios da simplicidade, da transparência, da justiça tributária e da defesa do meio ambiente, todos expressamente mencionados na Constituição Federal como diretrizes do Sistema Tributário Nacional.",
+    comando: "Sobre a afirmação do consultor, assinale a opção correta.",
+    gabarito: "A",
+    alternativas: {
+      A: "A afirmação está correta: a Reforma Tributária inseriu, no art. 145 da Constituição Federal, um parágrafo específico elencando esses princípios como diretrizes do Sistema Tributário Nacional.",
+      B: "A afirmação está incorreta: esses princípios são apenas doutrinários, sem previsão expressa no texto constitucional.",
+      C: "A afirmação está incorreta: esses princípios se aplicam exclusivamente ao IBS e à CBS, não ao Sistema Tributário Nacional como um todo.",
+      D: "A afirmação está correta, mas esses princípios já constavam da redação original da Constituição de 1988, sem qualquer alteração pela Reforma Tributária."
+    },
+    feedbacks: {
+      A: "Correta! O art. 145, §3º, CF (incluído pela EC 132/2023) estabelece que o Sistema Tributário Nacional deve observar os princípios da simplicidade, da transparência, da justiça tributária, da cooperação e da defesa do meio ambiente. É uma novidade da Reforma — antes, esses princípios não tinham essa formulação expressa no texto constitucional.",
+      B: "Incorreta. Não são apenas doutrinários — estão expressamente positivados no art. 145, §3º, CF, desde a EC 132/2023.",
+      C: "Incorreta. O dispositivo se refere ao Sistema Tributário Nacional como um todo, não apenas ao IBS e à CBS.",
+      D: "Incorreta. Esse rol de princípios é novidade da Reforma Tributária (EC 132/2023) — não constava da redação original de 1988."
+    },
+    fundamento: "Art. 145, §3º, CF/88 (incluído pela EC 132/2023): o Sistema Tributário Nacional deve observar os princípios da simplicidade, da transparência, da justiça tributária, da cooperação e da defesa do meio ambiente. É um novo bloco principiológico, ao lado dos clássicos (legalidade, isonomia, anterioridade etc.) do art. 150.",
+    caqui: "Você já decorou os princípios clássicos do art. 150 (legalidade, isonomia, irretroatividade, anterioridade, não confisco). A Reforma trouxe um segundo pacote, no art. 145, §3º, mais ligado ao 'espírito' do novo sistema: simplicidade, transparência, justiça tributária, cooperação e defesa do meio ambiente. Pense neles como a 'missão' da Reforma — o motivo pelo qual ela foi feita, agora virou texto de lei."
+  },
+  {
+    num: 25,
+    exame: "",
+    titulo: "Cronograma de Transição do ICMS e do ISS para o IBS (Reforma Tributária)",
+    enunciado: "Em 2026, um contribuinte questiona seu contador se já deve deixar de recolher o ICMS e o ISS normalmente, uma vez que a Emenda Constitucional nº 132/2023 já está em vigor desde dezembro de 2023 e criou o Imposto sobre Bens e Serviços (IBS) para substituí-los.",
+    comando: "Com base nas regras de transição da Reforma Tributária, assinale a afirmativa correta.",
+    gabarito: "C",
+    alternativas: {
+      A: "O contribuinte está correto: a partir de 2026, ICMS e ISS já estão extintos, devendo ser recolhidos apenas o IBS e a CBS.",
+      B: "O contribuinte está equivocado: ICMS e ISS continuarão sendo cobrados integralmente até 2033, sem qualquer alteração, quando serão substituídos de uma vez pelo IBS.",
+      C: "O contribuinte está equivocado: em 2026, ICMS e ISS continuam sendo cobrados normalmente; o IBS e a CBS entram em fase de teste, com alíquotas reduzidas e sem efeito arrecadatório relevante, havendo substituição gradual do ICMS e do ISS apenas a partir de 2029, com extinção completa prevista para 2033.",
+      D: "O contribuinte está equivocado: o ICMS já foi extinto em 2027, mas o ISS permanece em vigor integralmente até 2033."
+    },
+    feedbacks: {
+      A: "Incorreta. Em 2026, ICMS e ISS continuam sendo cobrados normalmente — a EC 132/2023 previu um longo período de transição, não uma substituição imediata.",
+      B: "Incorreta. Não é 'sem qualquer alteração até 2033, substituição de uma vez' — a redução do ICMS e do ISS é gradual, começando em 2029, e não abrupta em 2033.",
+      C: "Correta! Pelas regras de transição do ADCT (arts. 125 a 129, incluídos pela EC 132/2023): em 2026, IBS e CBS entram em fase de teste (alíquotas simbólicas de 0,1% e 0,9%, sem recolhimento efetivo obrigatório se cumpridas as obrigações acessórias); a partir de 2029, começa a redução gradual das alíquotas de ICMS e ISS, com aumento proporcional do IBS; a extinção completa de ICMS e ISS está prevista para 2033.",
+      D: "Incorreta. Nem o ICMS nem o ISS foram extintos em 2027 — a extinção de ambos está prevista, de forma gradual, apenas a partir de 2029, com conclusão em 2033."
+    },
+    fundamento: "ADCT, arts. 125 a 129 (incluídos pela EC 132/2023): a transição para o IBS e a CBS ocorre em etapas. 2026: fase de teste (IBS 0,1%, CBS 0,9%, sem cobrança efetiva se cumpridas obrigações acessórias). 2027: extinção do PIS e da COFINS, entrada em vigor do Imposto Seletivo, IPI reduzido a zero (exceto Zona Franca de Manaus). 2029 a 2032: redução gradual das alíquotas de ICMS e ISS, com aumento escalonado do IBS. 2033: extinção definitiva do ICMS e do ISS.",
+    caqui: "Não existe 'Reforma ligou a chave e tudo mudou de uma vez'. É uma transição de quase dez anos: 2026 é só teste (ninguém paga de verdade o IBS/CBS ainda), 2027 mexe nos tributos federais (PIS, Cofins, IPI), e só a partir de 2029 é que ICMS e ISS começam a diminuir de verdade, terminando em 2033. Se a prova perguntar 'o que muda em 2026', a resposta é: quase nada na prática — é ano de ajuste de sistema."
+  },
+  {
+    num: 26,
+    exame: "",
+    titulo: "Ampliação da Imunidade Recíproca aos Correios (Reforma Tributária)",
+    enunciado: "O Município Alfa pretende cobrar IPTU sobre um imóvel de propriedade da Empresa Brasileira de Correios e Telégrafos (ECT), empresa pública federal prestadora do serviço postal, utilizado exclusivamente para as atividades vinculadas à prestação desse serviço.",
+    comando: "Diante desse cenário, assinale a afirmativa correta.",
+    gabarito: "D",
+    alternativas: {
+      A: "A cobrança é devida, pois a imunidade recíproca prevista na Constituição Federal se aplica apenas à União, aos Estados, ao Distrito Federal e aos Municípios, nunca a empresas públicas.",
+      B: "A cobrança é devida, pois empresas públicas que exploram atividade econômica em regime de concorrência com o setor privado nunca gozam de imunidade recíproca.",
+      C: "A cobrança não é devida, mas apenas em razão de lei municipal que conceda isenção específica aos Correios, e não por força de imunidade constitucional.",
+      D: "A cobrança não é devida: a Constituição Federal, com a redação dada pela Reforma Tributária, estende expressamente a imunidade recíproca à empresa pública prestadora de serviço postal, quanto ao patrimônio, renda e serviços vinculados às suas finalidades essenciais."
+    },
+    feedbacks: {
+      A: "Incorreta. A imunidade recíproca também alcança determinadas entidades da administração indireta, como autarquias, fundações públicas e, desde a Reforma, a empresa pública prestadora de serviço postal.",
+      B: "Incorreta. A regra geral é que empresas públicas exploradoras de atividade econômica em concorrência com o setor privado não gozam de imunidade — mas os Correios receberam extensão expressa e específica dessa proteção pela Reforma Tributária, exatamente por prestarem serviço público, não atividade econômica concorrencial.",
+      C: "Incorreta. Não se trata de isenção legal municipal (que seria concedida e poderia ser revogada), mas de imunidade constitucional, superior e indisponível ao ente tributante.",
+      D: "Correta! O art. 150, §2º, CF (com redação ampliada pela EC 132/2023) estende a imunidade recíproca às autarquias, às fundações instituídas e mantidas pelo poder público e à empresa pública prestadora de serviço postal (os Correios), quanto ao patrimônio, à renda e aos serviços vinculados às suas finalidades essenciais ou às delas decorrentes."
+    },
+    fundamento: "Art. 150, §2º, CF/88 (redação ampliada pela EC 132/2023): a imunidade tributária recíproca (que veda a cobrança de impostos entre os entes federativos) passou a alcançar expressamente a empresa pública prestadora de serviço postal, além das autarquias e fundações públicas já contempladas antes da Reforma.",
+    caqui: "Antes da Reforma, a imunidade recíproca para os Correios era discutida na jurisprudência (o STF reconhecia por interpretação, tratando os Correios como equivalentes à Fazenda Pública). Agora não precisa mais discutir — a própria Constituição inclui os Correios expressamente no rol de quem tem imunidade recíproca. Menos uma discussão para brigar no Judiciário."
+  },
+  {
+    num: 27,
+    exame: "",
+    titulo: "Atualização da Base de Cálculo do IPTU por Decreto (Reforma Tributária)",
+    enunciado: "O Prefeito do Município Alfa, com base em critérios previamente estabelecidos em lei municipal, editou decreto atualizando monetariamente a base de cálculo do IPTU, sem qualquer majoração real do valor dos imóveis, apenas repondo a perda inflacionária do período. Um contribuinte questiona a validade do decreto, alegando violação ao princípio da legalidade tributária, já que tributo só poderia ser majorado por lei.",
+    comando: "Diante desse cenário, à luz da Constituição Federal, assinale a afirmativa correta.",
+    gabarito: "B",
+    alternativas: {
+      A: "O contribuinte tem razão: qualquer atualização da base de cálculo do IPTU, ainda que apenas para repor a inflação, exige lei em sentido estrito, sob pena de violação à legalidade tributária.",
+      B: "O contribuinte não tem razão: a Reforma Tributária passou a permitir expressamente que o Poder Executivo municipal atualize a base de cálculo do IPTU por decreto, conforme critérios estabelecidos em lei municipal, sem que isso configure majoração sujeita à reserva legal.",
+      C: "O contribuinte tem razão, mas apenas porque a atualização deveria ter sido feita por lei complementar municipal, não por lei ordinária nem por decreto.",
+      D: "O contribuinte não tem razão, mas apenas porque a atualização de tributos municipais nunca esteve sujeita ao princípio da legalidade, desde a redação original da Constituição de 1988."
+    },
+    feedbacks: {
+      A: "Incorreta. Desde a EC 132/2023, a própria Constituição autoriza que a atualização (não majoração real) da base de cálculo do IPTU seja feita por decreto, com base em critérios de lei municipal — é uma exceção expressa e específica à legalidade tributária.",
+      B: "Correta! O art. 156, §1º, II, CF (com redação dada pela EC 132/2023) prevê que o IPTU poderá ter sua base de cálculo atualizada pelo Poder Executivo, conforme critérios estabelecidos em lei municipal — sem prejuízo da progressividade no tempo. Isso é uma exceção pontual ao princípio da legalidade, criada especificamente pela Reforma para simplificar a mera reposição inflacionária (que, segundo a Súmula 160 do STJ, já não era considerada 'aumento' de tributo).",
+      C: "Incorreta. Não há exigência de lei complementar — a atualização é feita por decreto, desde que os critérios estejam previstos em lei municipal (ordinária).",
+      D: "Incorreta. A legalidade tributária é, sim, a regra geral aplicável aos Municípios. O que a Reforma criou foi uma exceção pontual, específica para a atualização (não majoração) da base de cálculo do IPTU."
+    },
+    fundamento: "Art. 156, §1º, II, CF/88 (com redação dada pela EC 132/2023): o IPTU poderá ter sua base de cálculo atualizada pelo Poder Executivo, conforme critérios estabelecidos em lei municipal, sem prejuízo da progressividade no tempo. É uma exceção expressa ao princípio da legalidade tributária (art. 150, I, CF), consolidando o entendimento da Súmula 160 do STJ de que a mera atualização monetária, sem majoração real do valor do imóvel, não constitui aumento de tributo sujeito à reserva legal.",
+    caqui: "Repara na diferença: MAJORAR a base de cálculo (aumentar de verdade, acima da inflação) ainda precisa de lei. ATUALIZAR a base de cálculo (só repor a inflação, sem aumento real) agora pode ser feita por decreto — desde que a lei municipal já tenha estabelecido os critérios dessa atualização. É uma válvula de simplificação: sem essa regra, toda vez que a Prefeitura quisesse só corrigir a inflação, precisaria aprovar lei nova na Câmara Municipal."
+  },
+  {
+    num: 28,
+    exame: "",
+    titulo: "CBS — Nova Contribuição da União (Reforma Tributária)",
+    enunciado: "A União pretende instituir a Contribuição Social sobre Bens e Serviços (CBS), prevista no art. 195, V, da Constituição Federal, com o objetivo de substituir progressivamente o PIS e a COFINS no financiamento da seguridade social.",
+    comando: "Sobre a CBS, assinale a afirmativa correta.",
+    gabarito: "A",
+    alternativas: {
+      A: "A CBS é de competência da União, tem natureza de contribuição para a seguridade social, e integra, ao lado do IBS, o modelo de IVA dual criado pela Reforma Tributária.",
+      B: "A CBS é de competência compartilhada entre a União e os Estados, sendo arrecadada conjuntamente com o IBS em um único tributo.",
+      C: "A CBS substitui integralmente o Imposto de Renda das pessoas jurídicas, unificando a tributação federal sobre a renda e o consumo.",
+      D: "A CBS é de competência dos Municípios, sendo a contrapartida federal criada para compensar a extinção do ISS."
+    },
+    feedbacks: {
+      A: "Correta! O art. 195, V, CF (incluído pela EC 132/2023) instituiu a CBS como contribuição de competência da União, destinada ao financiamento da seguridade social, substituindo o PIS e a COFINS. Junto com o IBS (estadual/municipal), forma o chamado 'IVA dual' brasileiro — dois tributos distintos, mas com base de cálculo e regras de apuração unificadas por lei complementar.",
+      B: "Incorreta. A CBS é exclusivamente federal — quem é compartilhado entre Estados e Municípios é o IBS, tributo distinto.",
+      C: "Incorreta. A CBS substitui o PIS e a COFINS (tributos sobre consumo/faturamento), não o Imposto de Renda.",
+      D: "Incorreta. A CBS é da União, não dos Municípios."
+    },
+    fundamento: "Art. 195, V, CF/88 (incluído pela EC 132/2023): a seguridade social será financiada, entre outras fontes, pela Contribuição Social sobre Bens e Serviços (CBS), de competência da União, que substitui gradualmente o PIS e a COFINS. Junto com o IBS, compõe o IVA dual — modelo de tributação sobre o consumo com base ampla, não cumulatividade plena e legislação unificada.",
+    caqui: "Pensa no IVA dual como uma dupla: CBS é a parte federal (União), IBS é a parte estadual/municipal (Estados + Municípios). Cada um susbtitui tributos diferentes: CBS mata PIS e COFINS; IBS mata ICMS e ISS. Mas as regras de apuração (não cumulatividade, base de cálculo, fato gerador) são as mesmas para os dois — é isso que torna o sistema 'dual', não dois sistemas soltos."
   }
 ];
 
